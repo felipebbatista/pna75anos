@@ -1,0 +1,58 @@
+body {
+    border-top: 4px solid #aaa683;
+    background-color: #2d2d2d;
+}
+
+.secao-pagina {
+	position: relative;
+	overflow: hidden;	
+}
+
+.secao-pagina.intro a.logo {
+	display: inline-block;
+	margin-top: 50px;
+}
+
+.secao-pagina.intro a.linkedin {
+	float: right;
+	margin-top: 95px;
+}
+
+.secao-pagina.depoimentos {
+	background-image: url('../imgs/bg-depoimentos.png');
+}
+
+.secao-pagina.depoimentos .container-75-anos {
+	position: relative;
+	height: 420px;
+}
+
+.secao-pagina.depoimentos .ponto {
+	cursor: pointer;
+	position: absolute;
+	border: 2px solid #aaa683;
+	width: 24px;
+	height: 24px;
+}
+
+.secao-pagina.depoimentos .ponto:before {
+	display: none;
+	content: "";
+	position: absolute;
+	width: 20px;
+	height: 20px;
+	top: 0;
+	left: 0;
+	background: #aaa683;
+}
+
+.secao-pagina.depoimentos .ponto:hover:before {
+	display: block;
+}
+
+
+/* classes gerais */
+
+.full-height {
+	height: 100vh;
+}
