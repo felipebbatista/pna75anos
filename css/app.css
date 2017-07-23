@@ -5,7 +5,10 @@ body {
 
 .secao-pagina {
 	position: relative;
-	overflow: hidden;	
+}
+
+.secao-pagina.intro {
+	height: 95vh;
 }
 
 .secao-pagina.intro a.logo {
@@ -18,9 +21,50 @@ body {
 	margin-top: 95px;
 }
 
+.secao-pagina.intro .container-citacao {
+	position: absolute;
+	width: 100%;
+	bottom: 0;
+	left: 0;
+}
+
+.secao-pagina.intro .container-citacao .citacao {
+	position: relative;
+	width: 100%;
+	max-width: 970px;
+	margin: 0 auto;
+	padding: 30px 50px 0 50px;
+	text-align: center;
+	background: #e2e2e2;
+}
+
+.secao-pagina.intro .container-citacao .citacao .referencia {
+	margin-bottom: 0;
+}
+
 .secao-pagina.depoimentos {
+	padding-top: 40px;
 	background-image: url('../imgs/bg-depoimentos.png');
 }
+
+.secao-pagina.depoimentos .depoimentos-before {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	text-align: center;
+}
+
+.secao-pagina.depoimentos .depoimentos-before .before {
+	display: block;
+	position: relative;
+	width: 100%;
+	max-width: 970px;
+	height: 30px;
+	margin: 0 auto;
+	background: #e2e2e2;	
+}
+
 
 .secao-pagina.depoimentos .container-75-anos {
 	position: relative;
@@ -50,6 +94,29 @@ body {
 	display: block;
 }
 
+.secao-pagina.video {
+	padding: 70px 0 100px 0;
+}
+
+.secao-pagina.video .responsive-embed {
+	padding-bottom: 55%;
+}
+
+.secao-pagina.video h2 {
+	margin-bottom: 50px;
+	color: #fff;
+	text-transform: uppercase;
+	text-align: center;
+}
+
+footer {
+	padding: 100px 0;
+	background: #222;
+}
+
+footer .copyright {
+	display: block;
+}
 
 /* classes gerais */
 

@@ -1,6 +1,6 @@
 <?php get_header(); ?>
 
-<section class="parallax-window intro secao-pagina full-height" data-parallax-direction="down" data-parallax-bg-size="auto" data-parallax-speed="1" data-parallax-bg-image="<?php bloginfo('template_url'); ?>/imgs/bg-header.jpg">
+<section class="parallax-window intro secao-pagina" data-parallax-direction="down" data-parallax-bg-size="auto" data-parallax-speed="1" data-parallax-bg-image="<?php bloginfo('template_url'); ?>/imgs/bg-header.jpg">
     <div class="grid-container">
         <div class="grid-x">
             <div class="small-9 cell">
@@ -14,12 +14,19 @@
                 </a>
             </div>
         </div>        
-    </div>        
+    </div>
+	<div class="container-citacao">
+	    <div class="citacao">
+		    <p class="frase">"A firma de advogados como conhecemos hoje no Brasil foi uma iniciativa do Pinheiro, que, ao fundar seu escritório, alterou todo o conceito não só da advocacia, mas do próprio advogado."<p>
+			<p class="referencia">O Advogado, Rodrigo Leal Rodrigues, 2004</p>
+	    </div>
+	</div>  
 </section>
 <section class="secao-pagina depoimentos">
+	<div class="depoimentos-before"><span class="before"></span></div>
 	<div class="grid-container">
 		<div class="small-12 cell">
-			<h2>Visões de futuro</h2>
+			<h2><?php _e('Visões de futuro', 'pna'); ?></h2>
 			<section class="container-75-anos">
 				<div class="ponto p1"></div>
 				<div class="ponto p2"></div>
@@ -100,6 +107,18 @@
 			<p>Estimulamos nosso time a olhar além e pensar o que mudará nos próximos 75 anos – no Direito, na advocacia, no ambiente de negócios etc. Selecionamos 75 pensamentos e convidamos você a navegar por essas ideias.</p>
 		</div>
 	</div>
+</section>
+<section class="secao-pagina video">
+    <div class="grid-container">
+        <div class="grid-x">
+            <div class="small-12 cell">
+	            <h2>Estamos prontos<br>Para os próximos 75 anos</h2>
+				<div class="responsive-embed">
+					<iframe width="420" height="315" src="https://www.youtube.com/embed/R3AKlscrjmQ" frameborder="0" allowfullscreen></iframe>
+				</div>	
+            </div>
+        </div>
+    </div>
 </section>
 
 <?php get_footer(); ?>
