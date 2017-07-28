@@ -1,4 +1,11 @@
-<?php get_header(); ?>
+<?php 
+	get_header(); 
+	$pagina_inicio = get_page_by_path('inicio');
+	$pagina_depoimentos = get_page_by_path('depoimentos');
+	$pagina_video = get_page_by_path('video');
+	$citacao = get_field('citacao', $pagina_inicio->ID);
+	$referencia = get_field('referencia', $pagina_inicio->ID);
+?>
 
 <section class="parallax-window intro secao-pagina" data-parallax-direction="down" data-parallax-bg-size="auto" data-parallax-speed="1" data-parallax-bg-image="<?php bloginfo('template_url'); ?>/imgs/bg-header.jpg">
     <div class="grid-container">
@@ -14,10 +21,24 @@
                 </a>
             </div>
         </div>        
-    </div>
+    </div>        
+	<div class="centraliza">
+	    <div class="grid-container">
+	        <div class="grid-x">
+	            <div class="small-12 medium-5 cell">A</div>
+	            <div class="small-12 medium-5 medium-offset-2 cell">
+		            <section class="conteudo">
+			            <span class="before"></span>
+			            <p><?php echo $pagina_inicio->post_content; ?></p>
+			            <span class="after"></span>
+		            </section>
+	            </div>
+	        </div>        
+	    </div>
+	</div>
 	<div class="container-citacao">
 	    <div class="citacao">
-		    <p class="frase">"A firma de advogados como conhecemos hoje no Brasil foi uma iniciativa do Pinheiro, que, ao fundar seu escritório, alterou todo o conceito não só da advocacia, mas do próprio advogado."<p>
+		    <p class="frase">“<?php echo $citacao; ?>”<p>
 			<p class="referencia">O Advogado, Rodrigo Leal Rodrigues, 2004</p>
 	    </div>
 	</div>  
