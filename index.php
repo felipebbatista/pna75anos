@@ -5,9 +5,12 @@
 	$pagina_video = get_page_by_path('video');
 	$citacao = get_field('citacao', $pagina_inicio->ID);
 	$referencia = get_field('referencia', $pagina_inicio->ID);
+	$titulo_depoimentos = get_field('titulo', $pagina_depoimentos->ID);
+	$titulo_video = get_field('titulo', $pagina_video->ID);
 ?>
 
-<section class="parallax-window intro secao-pagina" data-parallax-direction="down" data-parallax-bg-size="auto" data-parallax-speed="1" data-parallax-bg-image="<?php bloginfo('template_url'); ?>/imgs/bg-header.jpg">
+<!--<section class="parallax-window intro secao-pagina" data-parallax-direction="down" data-parallax-bg-size="auto" data-parallax-speed="1" data-parallax-bg-image="<?php bloginfo('template_url'); ?>/imgs/bg-header.jpg">-->
+<section class="parallax-window intro secao-pagina">
     <div class="grid-container">
         <div class="grid-x">
             <div class="small-9 cell">
@@ -47,7 +50,7 @@
 	<div class="depoimentos-before"><span class="before"></span></div>
 	<div class="grid-container">
 		<div class="small-12 cell">
-			<h2><?php _e('Visões de futuro', 'pna'); ?></h2>
+			<h2><?php echo $titulo_depoimentos; ?></h2>
 			<section class="container-75-anos">
 				<div class="ponto p1"></div>
 				<div class="ponto p2"></div>
@@ -125,7 +128,13 @@
 				<div class="ponto p74"></div>
 				<div class="ponto p75"></div>
 			</section>
-			<p>Estimulamos nosso time a olhar além e pensar o que mudará nos próximos 75 anos – no Direito, na advocacia, no ambiente de negócios etc. Selecionamos 75 pensamentos e convidamos você a navegar por essas ideias.</p>
+	        <div class="grid-x">
+	            <div class="small-12 medium-6 cell">
+					<section class="conteudo">
+						<p><?php echo $pagina_depoimentos->post_content; ?></p>
+					</section>
+	            </div>
+	        </div>
 		</div>
 	</div>
 </section>
@@ -133,7 +142,7 @@
     <div class="grid-container">
         <div class="grid-x">
             <div class="small-12 cell">
-	            <h2>Estamos prontos<br>Para os próximos 75 anos</h2>
+	            <h2><?php echo $titulo_video; ?></h2>
 				<div class="responsive-embed">
 					<iframe width="420" height="315" src="https://www.youtube.com/embed/R3AKlscrjmQ" frameborder="0" allowfullscreen></iframe>
 				</div>	
@@ -143,3 +152,6 @@
 </section>
 
 <?php get_footer(); ?>
+<script>
+	jQuery('.parallax-window').parallax({imageSrc: '<?php bloginfo('template_url'); ?>/imgs/bg-header.jpg'});
+</script>

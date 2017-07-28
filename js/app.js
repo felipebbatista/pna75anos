@@ -1,10 +1,10 @@
 $(document).foundation();
 
 jQuery(document).ready(function(){
-	jQuery('.parallax-window').parallaxBackground();	
+	//jQuery('.parallax-window').parallaxBackground();	
 
 	jQuery(window).on('scroll', function(){
-		if ( jQuery(window).scrollTop() > 50 ) {
+		if ( jQuery(window).scrollTop() > 30 ) {
 			jQuery('.secao-pagina.intro .conteudo .before').stop().animate({
 				'top': 0,
 				'bottom': -75
@@ -29,5 +29,5 @@ jQuery(document).ready(function(){
 jQuery(window).on('load', function(){
 	jQuery('.secao-pagina.intro .conteudo .before, .secao-pagina.intro .conteudo .after').stop().animate({
 		'opacity': 1
-	}, 2000);
+	}, 500);
 });
