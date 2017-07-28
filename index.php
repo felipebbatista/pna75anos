@@ -42,7 +42,7 @@
 	<div class="container-citacao">
 	    <div class="citacao">
 		    <p class="frase">“<?php echo $citacao; ?>”<p>
-			<p class="referencia">O Advogado, Rodrigo Leal Rodrigues, 2004</p>
+			<p class="referencia"><?php echo $referencia; ?></p>
 	    </div>
 	</div>  
 </section>
