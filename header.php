@@ -51,4 +51,4 @@
     <?php wp_head(); ?>
 </head>
 
-<body <?php body_class(); ?>>
+<body onload="init();" <?php body_class(); ?>>
