@@ -2,7 +2,7 @@
 	get_header(); 
 	$pagina_inicio = get_page_by_path('inicio');
 	$pagina_depoimentos = get_page_by_path('depoimentos');
-	$depoimentos = get_posts('posts_per_page=75');
+	$depoimentos = get_posts('posts_per_page=75&order=ASC');
 	$pagina_video = get_page_by_path('video');
 	$citacao = get_field('citacao', $pagina_inicio->ID);
 	$referencia = get_field('referencia', $pagina_inicio->ID);
@@ -30,67 +30,6 @@
 	        <div class="grid-x">
 	            <div class="small-12 medium-5 cell">
 					<script src="https://code.createjs.com/createjs-2015.11.26.min.js"></script>
-					<script>
-						var canvas, stage, exportRoot, anim_container, dom_overlay_container, fnStartAnimation;
-						function init() {
-							canvas = document.getElementById("canvas");
-							anim_container = document.getElementById("animation_container");
-							dom_overlay_container = document.getElementById("dom_overlay_container");
-							var comp=AdobeAn.getComposition("8C4ED495067F4EAC8F21665D81C556E6");
-							var lib=comp.getLibrary();
-							handleComplete({},comp);
-						}
-						function handleComplete(evt,comp) {
-							//This function is always called, irrespective of the content. You can use the variable "stage" after it is created in token create_stage.
-							var lib=comp.getLibrary();
-							var ss=comp.getSpriteSheet();
-							canvas.style.display = 'block';
-							exportRoot = new lib.Semtítulo2();
-							stage = new lib.Stage(canvas);
-							stage.addChild(exportRoot);	
-							//Registers the "tick" event listener.
-							fnStartAnimation = function() {
-								createjs.Ticker.setFPS(lib.properties.fps);
-								createjs.Ticker.addEventListener("tick", stage);
-							}	    
-							//Code to support hidpi screens and responsive scaling.
-							function makeResponsive(isResp, respDim, isScale, scaleType) {		
-								var lastW, lastH, lastS=1;		
-								window.addEventListener('resize', resizeCanvas);		
-								resizeCanvas();		
-								function resizeCanvas() {			
-									var w = lib.properties.width, h = lib.properties.height;			
-									var iw = window.innerWidth, ih=window.innerHeight;			
-									var pRatio = window.devicePixelRatio || 1, xRatio=iw/w, yRatio=ih/h, sRatio=1;			
-									if(isResp) {                
-										if((respDim=='width'&&lastW==iw) || (respDim=='height'&&lastH==ih)) {                    
-											sRatio = lastS;                
-										}				
-										else if(!isScale) {					
-											if(iw<w || ih<h)						
-												sRatio = Math.min(xRatio, yRatio);				
-										}				
-										else if(scaleType==1) {					
-											sRatio = Math.min(xRatio, yRatio);				
-										}				
-										else if(scaleType==2) {					
-											sRatio = Math.max(xRatio, yRatio);				
-										}			
-									}			
-									canvas.width = w*pRatio*sRatio;			
-									canvas.height = h*pRatio*sRatio;
-									canvas.style.width = anim_container.style.width = dom_overlay_container.style.width = w*sRatio+'px';				
-									canvas.style.height = anim_container.style.height = dom_overlay_container.style.height = h*sRatio+'px';
-									stage.scaleX = pRatio*sRatio;			
-									stage.scaleY = pRatio*sRatio;			
-									lastW = iw; lastH = ih; lastS = sRatio;		
-								}
-							}
-							makeResponsive(false,'both',false,1);	
-							AdobeAn.compositionLoaded(lib.properties.id);
-							fnStartAnimation();
-						}
-					</script>
 					<div id="animation_container" style="background-color: transparent; width:585px; height:390px">
 						<canvas id="canvas" width="585" height="390" style="position: absolute; display: none; background:transparent;"></canvas>
 						<div id="dom_overlay_container" style="pointer-events:none; overflow:hidden; width:585px; height:390px; position: absolute; left: 0px; top: 0px; display: none;">
@@ -119,23 +58,19 @@
 	<section class="depoimentos-expanded">
 		<div class="grid-container">
 			<div class="grid-x">
-				<div class="small-12 cell">
-					<h2><?php echo $titulo_depoimentos; ?></h2>
-				</div>
-			</div>
-		</div>
-		<div class="grid-container">
-			<div class="grid-x">
 				<div class="small-12 medium-7 cell">
+					<h2><?php echo $titulo_depoimentos; ?></h2>
 					<div class="container-depoimentos-completos">
-						<div class="depoimentos-completos scroll-pane">
-							<div class="depoimento">
-								<p>
-									Nos próximos anos, assistiremos à automatização de certas atribuições do advogado. De auditorias à elaboração de minutas e exame de jurisprudência, a inteligência artificial executará diversos trabalhos em menos tempo e com custo reduzido. Se, de um lado, essa mecanização prejudicará a percepção do valor do trabalho jurídico pelo cliente, de outro, ela ajudará a resgatar a pessoalidade nas relações cliente-advogado. Os valores individuais, a cultura, a sensibilidade e a capacidade de improviso diante do complexo e do imprevisível serão o novo selo dos grandes advogados. Mais do que profissionais tecnicamente capacitados, os clientes buscarão pessoas aptas a demonstrar empatia e a superar a análise robotizada de questões jurídicas. 								
-								</p>
-								<p>
-									Nos próximos anos, assistiremos à automatização de certas atribuições do advogado. De auditorias à elaboração de minutas e exame de jurisprudência, a inteligência artificial executará diversos trabalhos em menos tempo e com custo reduzido. Se, de um lado, essa mecanização prejudicará a percepção do valor do trabalho jurídico pelo cliente, de outro, ela ajudará a resgatar a pessoalidade nas relações cliente-advogado. Os valores individuais, a cultura, a sensibilidade e a capacidade de improviso diante do complexo e do imprevisível serão o novo selo dos grandes advogados. Mais do que profissionais tecnicamente capacitados, os clientes buscarão pessoas aptas a demonstrar empatia e a superar a análise robotizada de questões jurídicas. 								
-								</p>
+						<div class="slider-depoimentos-completos">
+							<div class="depoimentos-completos scroll-pane">
+								<div class="depoimento">
+									<p>
+										Nos próximos anos, assistiremos à automatização de certas atribuições do advogado. De auditorias à elaboração de minutas e exame de jurisprudência, a inteligência artificial executará diversos trabalhos em menos tempo e com custo reduzido. Se, de um lado, essa mecanização prejudicará a percepção do valor do trabalho jurídico pelo cliente, de outro, ela ajudará a resgatar a pessoalidade nas relações cliente-advogado. Os valores individuais, a cultura, a sensibilidade e a capacidade de improviso diante do complexo e do imprevisível serão o novo selo dos grandes advogados. Mais do que profissionais tecnicamente capacitados, os clientes buscarão pessoas aptas a demonstrar empatia e a superar a análise robotizada de questões jurídicas. 								
+									</p>
+									<p>
+										Nos próximos anos, assistiremos à automatização de certas atribuições do advogado. De auditorias à elaboração de minutas e exame de jurisprudência, a inteligência artificial executará diversos trabalhos em menos tempo e com custo reduzido. Se, de um lado, essa mecanização prejudicará a percepção do valor do trabalho jurídico pelo cliente, de outro, ela ajudará a resgatar a pessoalidade nas relações cliente-advogado. Os valores individuais, a cultura, a sensibilidade e a capacidade de improviso diante do complexo e do imprevisível serão o novo selo dos grandes advogados. Mais do que profissionais tecnicamente capacitados, os clientes buscarão pessoas aptas a demonstrar empatia e a superar a análise robotizada de questões jurídicas. 								
+									</p>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -146,7 +81,34 @@
 						<div class="small-12 medium-5 cell"></div>						
 					</div>
 				</div>
-				<div class="small-12 medium-5 cell"></div>
+				<div class="small-12 medium-5 cell">
+					<div class="container-carrossel-depoimentos">
+						<div class="carrossel-depoimentos-completos">
+							<span class="cantoneira-left"></span>
+							<span class="cantoneira-right"></span>
+							<ul class="bxslider">
+								<?php
+									$count = 1;
+									foreach( $depoimentos as $depoimento )  {
+										$foto = get_field('foto', $depoimento->ID);
+										$cargo = get_field('cargo', $depoimento->ID);
+										$ano = get_field('ano', $depoimento->ID);
+										echo '
+											<li class="foto' . ( '3' == $count ? ' ativo' : '' ) . '" data-foto-id="' . $count .  '">
+												<img src="http://felipebatista.net/pna/pna75anos/wp-content/uploads/2017/07/alexandre-bertoldi.jpg" alt="' . $depoimento->post_title . '" />
+											</li>
+										';
+										$count++;
+									}
+								?>
+							</ul>
+						</div>
+						<div class="custom-carrossel-navigation" style="position:absolute;top:100px; right:0;">
+							<a href="#" class="prev"><img src="<?php bloginfo('template_url'); ?>/imgs/slide-up.png" alt="Prev" /></a>
+							<a href="#" class="next"><img src="<?php bloginfo('template_url'); ?>/imgs/slide-down.png" alt="next" /></a>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	</section>
@@ -166,7 +128,7 @@
 							<?php
 								$count = 1;
 								foreach( $depoimentos as $depoimento )  {
-									echo '<div class="ponto p' . $count .  '" depoimento-id="' . $count .  '"></div>';
+									echo '<div class="ponto p' . $count .  '" ponto-id="' . $count .  '"></div>';
 									$count++;
 								}
 							?>
@@ -183,11 +145,11 @@
 								foreach( $depoimentos as $depoimento )  {
 									$resumo_do_depoimento = get_field('resumo_do_depoimento', $depoimento->ID);
 									echo '
-										<div class="slide depoimento-' . $count .  '">
+										<div class="slide depoimento-' . $count .  '" data-depoimento-id="' . $count .  '">
 											<span class="conteudo">
 												<span class="texto">“' . $resumo_do_depoimento . '”</span>
 												<span class="autor">— ' . $depoimento->post_title . '</span>
-												<a class="ler-na-integra" href="">[' . __('ler na íntegra', 'pna') . ']</a>
+												<a class="ler-na-integra" data-goto-integra-id="' . $count .  '" href="">[' . __('ler na íntegra', 'pna') . ']</a>
 											</span>
 										</div>
 									';

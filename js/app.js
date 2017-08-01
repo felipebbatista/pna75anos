@@ -1,8 +1,95 @@
+var canvas, stage, exportRoot, anim_container, dom_overlay_container, fnStartAnimation;
+function init() {
+	canvas = document.getElementById("canvas");
+	anim_container = document.getElementById("animation_container");
+	dom_overlay_container = document.getElementById("dom_overlay_container");
+	var comp=AdobeAn.getComposition("8C4ED495067F4EAC8F21665D81C556E6");
+	var lib=comp.getLibrary();
+	handleComplete({},comp);
+}
+function handleComplete(evt,comp) {
+	//This function is always called, irrespective of the content. You can use the variable "stage" after it is created in token create_stage.
+	var lib=comp.getLibrary();
+	var ss=comp.getSpriteSheet();
+	canvas.style.display = 'block';
+	exportRoot = new lib.Semtítulo2();
+	stage = new lib.Stage(canvas);
+	stage.addChild(exportRoot);	
+	//Registers the "tick" event listener.
+	fnStartAnimation = function() {
+		createjs.Ticker.setFPS(lib.properties.fps);
+		createjs.Ticker.addEventListener("tick", stage);
+	}	    
+	//Code to support hidpi screens and responsive scaling.
+	function makeResponsive(isResp, respDim, isScale, scaleType) {		
+		var lastW, lastH, lastS=1;		
+		window.addEventListener('resize', resizeCanvas);		
+		resizeCanvas();		
+		function resizeCanvas() {			
+			var w = lib.properties.width, h = lib.properties.height;			
+			var iw = window.innerWidth, ih=window.innerHeight;			
+			var pRatio = window.devicePixelRatio || 1, xRatio=iw/w, yRatio=ih/h, sRatio=1;			
+			if(isResp) {                
+				if((respDim=='width'&&lastW==iw) || (respDim=='height'&&lastH==ih)) {                    
+					sRatio = lastS;                
+				}				
+				else if(!isScale) {					
+					if(iw<w || ih<h)						
+						sRatio = Math.min(xRatio, yRatio);				
+				}				
+				else if(scaleType==1) {					
+					sRatio = Math.min(xRatio, yRatio);				
+				}				
+				else if(scaleType==2) {					
+					sRatio = Math.max(xRatio, yRatio);				
+				}			
+			}			
+			canvas.width = w*pRatio*sRatio;			
+			canvas.height = h*pRatio*sRatio;
+			canvas.style.width = anim_container.style.width = dom_overlay_container.style.width = w*sRatio+'px';				
+			canvas.style.height = anim_container.style.height = dom_overlay_container.style.height = h*sRatio+'px';
+			stage.scaleX = pRatio*sRatio;			
+			stage.scaleY = pRatio*sRatio;			
+			lastW = iw; lastH = ih; lastS = sRatio;		
+		}
+	}
+	makeResponsive(false,'both',false,1);	
+	AdobeAn.compositionLoaded(lib.properties.id);
+	fnStartAnimation();
+}
+
 $(document).foundation();
 
 jQuery(document).ready(function(){
-	$('.scroll-pane').jScrollPane();
+	jQuery('.scroll-pane').jScrollPane();
 	
+	jQuery('.bxslider').bxSlider({
+		mode: 'vertical',
+		minSlides: 5,
+		maxSlides: 5,
+		moveSlides: 1,
+		pager: false,
+		touchEnabled: false,
+		onSliderLoad: function(){
+			jQuery('.cantoneira-left').css({
+				'top': jQuery('.foto.ativo img').position().top-10,
+				'left': jQuery('.foto.ativo img').position().left-10
+			});
+		
+			jQuery('.cantoneira-right').css({
+				'top': jQuery('.foto.ativo img').position().top+133,
+				'left': jQuery('.foto.ativo img').position().left + jQuery('.foto.ativo img').width() - 37
+			});
+			
+		},
+		onSlideBefore: function(){
+			jQuery('.foto.ativo').next().addClass('ativo');
+		},
+		onSlideAfter: function(){
+			jQuery('.foto.ativo').prev().removeClass('ativo');
+		}
+	});
+
 	jQuery(window).on('scroll', function(){
 		if ( jQuery(window).scrollTop() > 30 ) {
 			jQuery('.secao-pagina.intro .conteudo .before').stop().animate({
@@ -30,7 +117,18 @@ jQuery(window).on('load', function(){
 	jQuery('.secao-pagina.intro .conteudo .before, .secao-pagina.intro .conteudo .after').stop().animate({
 		'opacity': 1
 	}, 500);
-
+	
+	/*	
+	jQuery('.custom-carrossel-navigation .next').on('click', function(e){
+		e.preventDefault();
+		jQuery('.carrossel-depoimentos-completos .foto').each(function(){
+			jQuery(this).css({
+				'margin-top': jQuery(this).css('margin-top') - 135
+			});
+		});
+	});
+	*/
+	
 	jQuery('.simple-depoimentos-slider').flexslider({
 		selector: '.slides > .slide',
 		animation: 'slide',
@@ -38,6 +136,11 @@ jQuery(window).on('load', function(){
 		customDirectionNav: jQuery('.custom-navigation a'),	
 		controlNav: false,
 		slideshow: false,
+		after: function() {
+			var slide_ativo = jQuery('.slide.flex-active-slide');
+			jQuery('.slider-75-anos .ponto').removeClass('flex-active flex-active-slide');
+			jQuery('.slider-75-anos .ponto[ponto-id = ' + slide_ativo.data('depoimento-id') + ']').addClass('flex-active flex-active-slide');
+		}
 	});	
 
     jQuery('.slider-75-anos').flexslider({
@@ -48,11 +151,6 @@ jQuery(window).on('load', function(){
         directionNav: false,
         slideshow: false
     });
-	
-	jQuery('.secao-pagina.depoimentos .slider-container').css({
-		'margin-top': ( ( jQuery('.container-75-anos').height() - jQuery('.secao-pagina.depoimentos .slider-container').height() ) / 2 )  - 120
-	});
-
 });
 
 //animacao da home
