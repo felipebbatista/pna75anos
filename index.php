@@ -63,14 +63,17 @@
 					<div class="container-depoimentos-completos">
 						<div class="slider-depoimentos-completos">
 							<div class="depoimentos-completos scroll-pane">
-								<div class="depoimento">
-									<p>
-										Nos próximos anos, assistiremos à automatização de certas atribuições do advogado. De auditorias à elaboração de minutas e exame de jurisprudência, a inteligência artificial executará diversos trabalhos em menos tempo e com custo reduzido. Se, de um lado, essa mecanização prejudicará a percepção do valor do trabalho jurídico pelo cliente, de outro, ela ajudará a resgatar a pessoalidade nas relações cliente-advogado. Os valores individuais, a cultura, a sensibilidade e a capacidade de improviso diante do complexo e do imprevisível serão o novo selo dos grandes advogados. Mais do que profissionais tecnicamente capacitados, os clientes buscarão pessoas aptas a demonstrar empatia e a superar a análise robotizada de questões jurídicas. 								
-									</p>
-									<p>
-										Nos próximos anos, assistiremos à automatização de certas atribuições do advogado. De auditorias à elaboração de minutas e exame de jurisprudência, a inteligência artificial executará diversos trabalhos em menos tempo e com custo reduzido. Se, de um lado, essa mecanização prejudicará a percepção do valor do trabalho jurídico pelo cliente, de outro, ela ajudará a resgatar a pessoalidade nas relações cliente-advogado. Os valores individuais, a cultura, a sensibilidade e a capacidade de improviso diante do complexo e do imprevisível serão o novo selo dos grandes advogados. Mais do que profissionais tecnicamente capacitados, os clientes buscarão pessoas aptas a demonstrar empatia e a superar a análise robotizada de questões jurídicas. 								
-									</p>
-								</div>
+								<?php
+									$count = 1;
+									foreach( $depoimentos as $depoimento )  {
+										echo '
+											<div class="depoimento' . ( '3' == $count ? ' ativo' : '' ) . ' ' . $depoimento->post_name . '" data-depoimento-completo-id="' . $count .  '">
+												' . ( $depoimento->post_content ? apply_filters('the_content', $depoimento->post_content) : $depoimento->post_name . ': ESTE DEPOIMENTO NÃO TEM CONTEÚDO' ) . '
+											</div>
+										';
+										$count++;
+									}
+								?>
 							</div>
 						</div>
 					</div>
@@ -94,7 +97,7 @@
 										$cargo = get_field('cargo', $depoimento->ID);
 										$ano = get_field('ano', $depoimento->ID);
 										echo '
-											<li class="foto' . ( '3' == $count ? ' ativo' : '' ) . '" data-foto-id="' . $count .  '">
+											<li class="foto' . ( '3' == $count ? ' ativo' : '' ) . ' ' . $depoimento->post_name . '" data-foto-id="' . $count .  '">
 												<img src="http://felipebatista.net/pna/pna75anos/wp-content/uploads/2017/07/alexandre-bertoldi.jpg" alt="' . $depoimento->post_title . '" />
 											</li>
 										';
@@ -102,10 +105,6 @@
 									}
 								?>
 							</ul>
-						</div>
-						<div class="custom-carrossel-navigation" style="position:absolute;top:100px; right:0;">
-							<a href="#" class="prev"><img src="<?php bloginfo('template_url'); ?>/imgs/slide-up.png" alt="Prev" /></a>
-							<a href="#" class="next"><img src="<?php bloginfo('template_url'); ?>/imgs/slide-down.png" alt="next" /></a>
 						</div>
 					</div>
 				</div>
