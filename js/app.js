@@ -70,6 +70,7 @@ jQuery(document).ready(function(){
 		moveSlides: 1,
 		pager: false,
 		touchEnabled: false,
+		infiniteLoop: false,
 		onSlideBefore: function(){
 			jQuery('.foto img').width(135);
 		},
@@ -77,13 +78,14 @@ jQuery(document).ready(function(){
 			jQuery('.foto.ativo').prev().addClass('ativo');
 			jQuery('.foto.ativo').next().removeClass('ativo');
 			jQuery('.foto.ativo img').width(170);
-			jQuery('.depoimentos-completos .depoimento').removeClass('ativo').siblings('.depoimentos-completos .depoimento[data-depoimento-id=' + jQuery('.foto.ativo').data('foto-id')  + ']').addClass('ativo');
+			jQuery('.depoimentos-completos .depoimento.ativo').removeClass('ativo').prev().addClass('ativo');
 		},
-		onSlideNext: function(){
+		onSlideNext: function(slider){
 			jQuery('.foto.ativo').next().addClass('ativo');			
 			jQuery('.foto.ativo').prev().removeClass('ativo');
 			jQuery('.foto.ativo img').width(170);
-			jQuery('.depoimentos-completos .depoimento').removeClass('ativo').siblings('.depoimentos-completos .depoimento[data-depoimento-id=' + jQuery('.foto.ativo').data('foto-id')  + ']').addClass('ativo');
+			jQuery('.depoimentos-completos .depoimento.ativo').removeClass('ativo').next().addClass('ativo');
+			jQuery('.bx-prev').css('opacity', 1);
 		}
 	});
 

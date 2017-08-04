@@ -267,22 +267,33 @@ h6 {
 }
 
 .secao-pagina.depoimentos .depoimentos-expanded .depoimentos-completos {
-	overflow: auto;
+	position: relative;
 	width: 100%;
 	max-width: 470px;
 	height: 390px;
-	margin-left: 80px;
+	padding-left: 80px;
 }
 
 .secao-pagina.depoimentos .depoimentos-expanded .depoimentos-completos .depoimento {
-	display: none;
-	text-align: justify;
+	visibility: hidden;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
 	padding-left: 15px;
+	overflow: auto;
+	text-align: justify;
 }
 
 .secao-pagina.depoimentos .depoimentos-expanded .depoimentos-completos .depoimento.ativo {
-	display: block;
+	visibility: visible;
 }
+
+.secao-pagina.depoimentos .depoimentos-expanded .depoimentos-completos .depoimento .texto {
+	padding-left: 15px;
+}
+
 
 .secao-pagina.depoimentos .depoimentos-expanded .depoimentos-completos .depoimento p {
 	font-size: 18px;
@@ -383,6 +394,7 @@ h6 {
 }
 
 .secao-pagina.depoimentos .depoimentos-expanded .carrossel-depoimentos-completos .bx-wrapper .bx-prev {
+	opacity: 0.4;
 	margin-top: -85px!important;
 	background-image: url('../imgs/slide-up.png');
 }
@@ -1249,3 +1261,12 @@ ul.bxslider {
   font-size: .85em;
   padding: 10px;
 }
+
+.lb-v-dummy { width: 100%; display: block; height: 1px; }
+.lb-h-dummy { height: 100%; display: block; width: 1px; }
+.lb-clear { clear: both; }
+.lb-wrap { z-index: 0; overflow: auto; position: relative; }
+.lb-v-scrollbar { z-index: 1; position: absolute; right: 2px; top: 2px; width: 7px; height: 100%; background: #cfcfcf; opacity: 0.3; -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=40)"; border-radius: 7px; -webkit-border-radius: 7px; -moz-border-radius: 7px; }
+.lb-h-scrollbar { z-index: 1; position: absolute; bottom: 2px; left: 2px; width: 100%; height: 7px; background: #cfcfcf; opacity: 0.3; -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=40)"; border-radius: 7px; -webkit-border-radius: 7px; -moz-border-radius: 7px; }
+.lb-v-scrollbar-slider { position: absolute; width: 7px; height: 50px; left: 0; top: 0; background: #000; -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=100)"; border-radius: 7px; -webkit-border-radius: 7px; -moz-border-radius: 7px; }
+.lb-h-scrollbar-slider { position: absolute; height: 7px; width: 50px; left: 0; top: 0; background: #000; -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=100)"; border-radius: 7px; -webkit-border-radius: 7px; -moz-border-radius: 7px; }

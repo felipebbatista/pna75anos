@@ -62,13 +62,15 @@
 					<h2><?php echo $titulo_depoimentos; ?></h2>
 					<div class="container-depoimentos-completos">
 						<div class="slider-depoimentos-completos">
-							<div class="depoimentos-completos scroll-pane">
+							<div class="depoimentos-completos">
 								<?php
 									$count = 1;
 									foreach( $depoimentos as $depoimento )  {
 										echo '
-											<div class="depoimento' . ( '3' == $count ? ' ativo' : '' ) . ' ' . $depoimento->post_name . '" data-depoimento-completo-id="' . $count .  '">
-												' . ( $depoimento->post_content ? apply_filters('the_content', $depoimento->post_content) : $depoimento->post_name . ': ESTE DEPOIMENTO NÃO TEM CONTEÚDO' ) . '
+											<div class="depoimento scroll-pane' . ( '3' == $count ? ' ativo' : '' ) . ' ' . $depoimento->post_name . '" data-depoimento-completo-id="' . $count .  '">
+												<div class="texto">' 
+													. ( $depoimento->post_content ? apply_filters('the_content', $depoimento->post_content) : $depoimento->post_name . ': ESTE DEPOIMENTO NÃO TEM CONTEÚDO' ) . '
+												</div>
 											</div>
 										';
 										$count++;
@@ -142,7 +144,7 @@
 							<?php
 								$count = 1;
 								foreach( $depoimentos as $depoimento )  {
-									$resumo_do_depoimento = get_field('resumo_do_depoimento', $depoimento->ID);
+									$resumo_do_depoimento = $depoimento->post_excerpt;
 									echo '
 										<div class="slide depoimento-' . $count .  '" data-depoimento-id="' . $count .  '">
 											<span class="conteudo">
