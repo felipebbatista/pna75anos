@@ -16,12 +16,29 @@ h6 {
 	font-weight: normal;	
 }
 
+.loading {
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	background: #000 url('../imgs/loading.gif') no-repeat center;
+	z-index: 9999;
+}
+
 .secao-pagina {
 	position: relative;
 }
 
 .secao-pagina.intro {
 	height: 95vh;
+	overflow: hidden;
+}
+
+.secao-pagina.intro .header {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	z-index: 99;
 }
 
 .secao-pagina.intro a.logo {
@@ -29,9 +46,38 @@ h6 {
 	margin-top: 50px;
 }
 
-.secao-pagina.intro a.linkedin {
+.secao-pagina.intro .seletor-de-idiomas {
 	float: right;
+	padding-top: 98px;
+	margin-right: 20px;
+	text-transform: uppercase;
+}
+
+.secao-pagina.intro .seletor-de-idiomas a {
+	padding: 6px 10px 4px 10px;
+	font: 14px/1 'Avenir LT Std Black', sans-serif;
+	color: #fff;
+	text-align: center;
+	border: 1px solid #fff;
+}
+
+.secao-pagina.intro .seletor-de-idiomas a:hover {
+	color: #aaa683;
+	border-color: #aaa683;
+}
+
+.secao-pagina.intro a.linkedin {
+	display: inline-block;
+	float: right;
+	width: 25px;
+	height: 25px;
 	margin-top: 95px;
+	text-indent: -9999px;
+	background: url('../imgs/linkedin.png') no-repeat top center;
+}
+
+.secao-pagina.intro a.linkedin:hover {
+	background-position: bottom center;
 }
 
 .secao-pagina.intro .conteudo {
@@ -101,7 +147,7 @@ h6 {
 }
 
 .secao-pagina.depoimentos h2 {
-	margin-bottom: 90px;
+	margin-bottom: 50px;
 	font: 52px/1 'Surveyor Display Book Italic';
 }
 
@@ -118,7 +164,7 @@ h6 {
 	left: 0;
 	width: 100%;
 	text-align: center;
-	z-index: 9999;
+	z-index: 9998;
 }
 
 .secao-pagina.depoimentos .depoimentos-before .before {
@@ -176,10 +222,21 @@ h6 {
 	zoom: 1;
 }
 
+.secao-pagina.depoimentos .slider-container .simple-depoimentos-slider .slides .slide {
+	height: 256px;
+}
+
 .secao-pagina.depoimentos .slider-container .simple-depoimentos-slider .slides .slide .conteudo {
-	display: block;
-	padding: 50px 20px 0 0;
+	display: table;
+	height: 100%;
+	padding: 0 20px 0 0;
 	text-align: center;
+}
+
+.secao-pagina.depoimentos .slider-container .simple-depoimentos-slider .slides .slide .conteudo .table-cell {
+	display: table-cell;
+	vertical-align: middle;
+	padding-top: 12px;
 }
 
 .secao-pagina.depoimentos .slider-container .simple-depoimentos-slider .slides .slide .conteudo .texto {
@@ -237,33 +294,59 @@ h6 {
 	letter-spacing: 0.5px;
 }
 
+.secao-pagina.depoimentos .depoimentos-resumidos {
+	transition: all .5s ease;
+	-webkit-transition: all .5s ease;
+	-moz-transition: all .5s ease;
+}
+
 .secao-pagina.depoimentos .depoimentos-expanded {
+	opacity: 0;
 	position: absolute;
 	top: 0;
 	left: 0;
 	width: 100%;
 	height: 100%;
 	background-image: url('../imgs/bg-depoimentos.png');
-	z-index: 9000;
+	z-index: -9000;
 	overflow: hidden;	
+	transition: all .5s ease;
+	-webkit-transition: all .5s ease;
+	-moz-transition: all .5s ease;
 }
 
 .secao-pagina.depoimentos .depoimentos-expanded h2 {
+	position: relative;
 	margin-top: 100px;
+}
+
+.secao-pagina.depoimentos .depoimentos-expanded h2 .close {
+	cursor: pointer;
+	position: absolute;
+	right: 60px;
+	top: 0;
+	font-family: 'Avenir LT Std Heavy';
+}
+
+.secao-pagina.depoimentos .depoimentos-expanded.show {
+	opacity: 1;
+	z-index: 9998;
 }
 
 .secao-pagina.depoimentos .depoimentos-expanded .container-depoimentos-completos {
 	position: relative;
+	padding-left: 30px;
 }
 
 .secao-pagina.depoimentos .depoimentos-expanded .container-depoimentos-completos:before {
 	content: '“';
 	position: absolute;
-	top: -225px;
-	right: -25px;
+	top: -220px;
+	right: 30px;
 	font: 600px/1 'Surveyor Display Black';
 	color: #aaa683;
 	opacity: 0.05;
+	z-index: -10;
 }
 
 .secao-pagina.depoimentos .depoimentos-expanded .depoimentos-completos {
@@ -303,8 +386,13 @@ h6 {
 	margin-bottom: 0;
 }
 
+.secao-pagina.depoimentos .depoimentos-expanded .container-frase {
+	padding-right: 50px;
+}
+
 .secao-pagina.depoimentos .depoimentos-expanded .frase-inferior-depoimentos {
-	padding: 50px 0 0 50px;
+	margin-bottom: 0;
+	padding-top: 68px;
 	font-size: 11.5px;
 	line-height: 1.8;
 	color: #aaa683;
@@ -371,30 +459,60 @@ h6 {
 	padding: 10px 0;
 }
 
+.secao-pagina.depoimentos .depoimentos-expanded .carrossel-depoimentos-completos .foto .nome-ano-cargo {
+	display: none;
+}
+
+.secao-pagina.depoimentos .depoimentos-expanded .carrossel-depoimentos-completos .foto.inativo {
+	opacity: 0.4;
+}
+
 .secao-pagina.depoimentos .depoimentos-expanded .carrossel-depoimentos-completos .foto img {
 	width: 135px;
 	transition: all .5s ease;
+	-webkit-transition: all .5s ease;
+	-moz-transition: all .5s ease;
 }
 
 .secao-pagina.depoimentos .depoimentos-expanded .carrossel-depoimentos-completos .foto.ativo {
 	padding: 15px 0;
 }
 
-.secao-pagina.depoimentos .depoimentos-expanded .carrossel-depoimentos-completos .foto.ativo img {
-	width: 170px;
+.secao-pagina.depoimentos .depoimentos-expanded .carrossel-depoimentos-completos .foto.ativo .nome-ano-cargo {
+	display: block;
+	position: absolute;
+	top: 40px;
+	left: 220px;
+	width: 100%;
+	max-width: 170px;
 }
+
+.secao-pagina.depoimentos .depoimentos-expanded .carrossel-depoimentos-completos .foto.ativo .nome-ano-cargo .nome {
+	font: 34px/0.5 'Surveyor Display Black', sans-serif;
+	color: #aaa683;
+	text-transform: uppercase;
+}
+
 
 .secao-pagina.depoimentos .depoimentos-expanded .carrossel-depoimentos-completos .bx-wrapper .bx-prev, 
 .secao-pagina.depoimentos .depoimentos-expanded .carrossel-depoimentos-completos .bx-wrapper .bx-next {
+	display: block;
 	right: 0;
 	left: auto;
-	width: 13px;
-	height: 17px;
-	background-position: top left;
+	width: 20px;
+	height: 20px;
+	background-position: center right;
+	background-size: 13px 17px;
+	z-index: 99;
 }
 
-.secao-pagina.depoimentos .depoimentos-expanded .carrossel-depoimentos-completos .bx-wrapper .bx-prev {
+.secao-pagina.depoimentos .depoimentos-expanded .carrossel-depoimentos-completos .bx-wrapper .bx-prev.inativo, 
+.secao-pagina.depoimentos .depoimentos-expanded .carrossel-depoimentos-completos .bx-wrapper .bx-next.inativo {
 	opacity: 0.4;
+}
+
+
+.secao-pagina.depoimentos .depoimentos-expanded .carrossel-depoimentos-completos .bx-wrapper .bx-prev {
 	margin-top: -85px!important;
 	background-image: url('../imgs/slide-up.png');
 }
@@ -473,7 +591,6 @@ footer .copyright {
 }
 
 /* classes gerais */
-
 .full-height {
 	height: 100vh;
 }
@@ -487,6 +604,19 @@ footer .copyright {
 	-ms-transform: translateY(-50%);
 	-o-transform: translateY(-50%);
 	transform: translateY(-50%);
+}
+
+.padding-top-50 {
+	padding-top: 50px;
+}
+
+.z-index-999 {
+	position: relative;
+	z-index: 999;
+}
+
+.display-none {
+	display: none!important;
 }
 
 /* fontface */
@@ -991,6 +1121,17 @@ html[xmlns] .flexslider .slides {
 	position: absolute;
 }
 
+.jspPane:before
+{
+	content: "";
+	position: absolute;
+	width: 1px;
+	height: 100%;
+	top: 0;
+	left: 2px;
+	background: #aaa683;
+}
+
 .jspVerticalBar
 {
 	position: absolute;
@@ -1199,7 +1340,7 @@ ul.bxslider {
   width: 32px;
   height: 32px;
   text-indent: -9999px;
-  z-index: 9999;
+  z-index: 9998;
 }
 .bx-wrapper .bx-controls-direction a.disabled {
   display: none;
@@ -1270,3 +1411,24 @@ ul.bxslider {
 .lb-h-scrollbar { z-index: 1; position: absolute; bottom: 2px; left: 2px; width: 100%; height: 7px; background: #cfcfcf; opacity: 0.3; -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=40)"; border-radius: 7px; -webkit-border-radius: 7px; -moz-border-radius: 7px; }
 .lb-v-scrollbar-slider { position: absolute; width: 7px; height: 50px; left: 0; top: 0; background: #000; -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=100)"; border-radius: 7px; -webkit-border-radius: 7px; -moz-border-radius: 7px; }
 .lb-h-scrollbar-slider { position: absolute; height: 7px; width: 50px; left: 0; top: 0; background: #000; -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=100)"; border-radius: 7px; -webkit-border-radius: 7px; -moz-border-radius: 7px; }
+
+
+/* Video wrap */
+.bv-video-wrap {
+  width: 100%;
+  height: 100%;
+  /* Please note this is only required if you with to add the
+  '.bv-video-wrap--ready' class on the 'onReady' event */
+  display: none;
+  z-index: -1!important;
+}
+
+.bv-video-wrap--ready {
+  display: block;
+}
+
+/* Video object */
+.bv-video {
+  width: 100%;
+  height: 100%;
+}

@@ -52,3 +52,4 @@
 </head>
 
 <body onload="init();" <?php body_class(); ?>>
+	<div class="loading"></div>

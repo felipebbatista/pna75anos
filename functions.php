@@ -65,6 +65,23 @@ function ie_head() {
     ';
 }
 
+function icl_post_languages(){
+	$languages = icl_get_languages('skip_missing=1');
+	if ( 1 < count($languages) ) {
+		foreach($languages as $l) {
+			if ( 'pt-br' == $l['language_code'] ) {
+				$idioma = 'pt';
+			} else {
+				$idioma = $l['language_code'];
+			}
+			if( ! $l['active'] ) {
+				$langs[] = '<a href="' . $l['url'] . '">' . $l['native_name'] . '</a>';
+			}
+		}
+		echo join(', ', $langs);
+	}
+}
+
 function my_init_method() {
     if ( !is_admin() ) {
 		// não carrega o jquery padrão do WP

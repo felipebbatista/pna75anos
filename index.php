@@ -2,7 +2,8 @@
 	get_header(); 
 	$pagina_inicio = get_page_by_path('inicio');
 	$pagina_depoimentos = get_page_by_path('depoimentos');
-	$depoimentos = get_posts('posts_per_page=75&order=ASC');
+	$depoimentos = get_posts('posts_per_page=79&orderby=menu_order');
+	$depoimentos_resumos = get_posts('posts_per_page=79&orderby=menu_order&exclude=443,445,447,449');
 	$pagina_video = get_page_by_path('video');
 	$citacao = get_field('citacao', $pagina_inicio->ID);
 	$referencia = get_field('referencia', $pagina_inicio->ID);
@@ -10,31 +11,29 @@
 	$titulo_video = get_field('titulo', $pagina_video->ID);
 ?>
 
-<section class="parallax-window intro secao-pagina">
-    <div class="grid-container">
-        <div class="grid-x">
-            <div class="small-11 cell">
-                <a class="logo" href="#">
-                    <img src="<?php bloginfo('template_url'); ?>/imgs/logo.png" alt="Pinheiro Neto Advogados" />
-                </a>
-            </div>
-            <div class="small-1 cell">
-                <a class="linkedin" href="#" target="_blank">
-                    <img src="<?php bloginfo('template_url'); ?>/imgs/linkedin.png" alt="Linkedin" />
-                </a>
-            </div>
-        </div>        
-    </div>        
+<section class="intro secao-pagina">
+	<div class="header">
+	    <div class="grid-container">
+	        <div class="grid-x">
+	            <div class="small-12 medium-8 cell">
+	                <a class="logo" href="#">
+	                    <img src="<?php bloginfo('template_url'); ?>/imgs/logo.png" alt="Pinheiro Neto Advogados" />
+	                </a>
+	            </div>
+	            <div class="small-12 medium-4 cell">
+	                <a class="linkedin" href="#" target="_blank">Linkedin</a>
+		            <div class="seletor-de-idiomas">
+		            	<?php icl_post_languages(); ?>
+		            </div>
+	            </div>
+	        </div>        
+	    </div>        
+	</div>
 	<div class="centraliza">
 	    <div class="grid-container">
 	        <div class="grid-x">
 	            <div class="small-12 medium-5 cell">
-					<script src="https://code.createjs.com/createjs-2015.11.26.min.js"></script>
-					<div id="animation_container" style="background-color: transparent; width:585px; height:390px">
-						<canvas id="canvas" width="585" height="390" style="position: absolute; display: none; background:transparent;"></canvas>
-						<div id="dom_overlay_container" style="pointer-events:none; overflow:hidden; width:585px; height:390px; position: absolute; left: 0px; top: 0px; display: none;">
-						</div>
-					</div>
+		            <?php include('animacao.php'); ?>
 	            </div>
 	            <div class="small-12 medium-5 medium-offset-2 cell">
 		            <section class="conteudo">
@@ -52,6 +51,7 @@
 			<p class="referencia"><?php echo $referencia; ?></p>
 	    </div>
 	</div>  
+	<video class="bv-video"></video>
 </section>
 <section class="secao-pagina depoimentos">
 	<div class="depoimentos-before"><span class="before"></span></div>
@@ -59,15 +59,25 @@
 		<div class="grid-container">
 			<div class="grid-x">
 				<div class="small-12 medium-7 cell">
-					<h2><?php echo $titulo_depoimentos; ?></h2>
+					<h2>
+						<?php echo $titulo_depoimentos; ?>
+						<span class="close">X</span>
+					</h2>
 					<div class="container-depoimentos-completos">
 						<div class="slider-depoimentos-completos">
 							<div class="depoimentos-completos">
 								<?php
 									$count = 1;
 									foreach( $depoimentos as $depoimento )  {
+										$count_class = '';
+										if ( 2 == $count || 1 == $count || 78 == $count || 79 == $count ) {
+											$count_class = ' display-none';
+										} elseif ( 3 == $count ) {
+											$count_class = ' ativo';
+										}
+										
 										echo '
-											<div class="depoimento scroll-pane' . ( '3' == $count ? ' ativo' : '' ) . ' ' . $depoimento->post_name . '" data-depoimento-completo-id="' . $count .  '">
+											<div class="depoimento scroll-pane' . $count_class . ' ' . $depoimento->post_name . '" data-depoimento-completo-id="' . $count .  '">
 												<div class="texto">' 
 													. ( $depoimento->post_content ? apply_filters('the_content', $depoimento->post_content) : $depoimento->post_name . ': ESTE DEPOIMENTO NÃO TEM CONTEÚDO' ) . '
 												</div>
@@ -79,11 +89,17 @@
 							</div>
 						</div>
 					</div>
-					<div class="grid-x">
+					<div class="grid-x padding-top-30">
 						<div class="small-12 medium-7 cell text-right">
-							<p class="frase-inferior-depoimentos">Estimulamos nosso time a olhar além e pensar o que mudará nos próximos 75 anos – no Direito, na advocacia, no ambiente de negócios etc. Selecionamos 75 pensamentos e convidamos você a navegar por essas ideias.</p>
+							<div class="container-frase">
+								<p class="frase-inferior-depoimentos"><?php echo $pagina_depoimentos->post_content; ?></p>
+							</div>
 						</div>
-						<div class="small-12 medium-5 cell"></div>						
+						<div class="small-12 medium-5 cell">
+							<figure class="75-small">
+								<img src="<?php bloginfo('template_url'); ?>/imgs/75-small.png" alt="75 anos" />
+							</figure>
+						</div>						
 					</div>
 				</div>
 				<div class="small-12 medium-5 cell">
@@ -95,12 +111,22 @@
 								<?php
 									$count = 1;
 									foreach( $depoimentos as $depoimento )  {
+										$count_class = '';
+										if ( 3 == $count ) {
+											$count_class = ' ativo';
+										} elseif ( 77 == $count ) {
+											$count_class = ' last';
+										}
+										
 										$foto = get_field('foto', $depoimento->ID);
 										$cargo = get_field('cargo', $depoimento->ID);
 										$ano = get_field('ano', $depoimento->ID);
 										echo '
-											<li class="foto' . ( '3' == $count ? ' ativo' : '' ) . ' ' . $depoimento->post_name . '" data-foto-id="' . $count .  '">
+											<li class="foto' . $count_class . ' ' . $depoimento->post_name . '" data-foto-id="' . $count .  '">
 												<img src="http://felipebatista.net/pna/pna75anos/wp-content/uploads/2017/07/alexandre-bertoldi.jpg" alt="' . $depoimento->post_title . '" />
+												<div class="nome-ano-cargo">
+													<span class="nome">' . $depoimento->post_title . '</span>
+												</div>
 											</li>
 										';
 										$count++;
@@ -113,68 +139,82 @@
 			</div>
 		</div>
 	</section>
-	<div class="grid-container">
-		<div class="grid-x">
-			<div class="small-12 cell">
-				<h2><?php echo $titulo_depoimentos; ?></h2>
-			</div>
-		</div>
-	</div>
-	<div class="grid-container">
-		<div class="grid-x">
-			<div class="small-12 medium-7 cell">
-				<section class="container-75-anos">
-					<div class="slider-75-anos">
-						<div class="pontos">
-							<?php
-								$count = 1;
-								foreach( $depoimentos as $depoimento )  {
-									echo '<div class="ponto p' . $count .  '" ponto-id="' . $count .  '"></div>';
-									$count++;
-								}
-							?>
-						</div>
-					</div>
-				</section>
-			</div>
-			<div class="small-12 medium-5 cell">
-				<div class="slider-container">
-					<div class="simple-depoimentos-slider">
-						<div class="slides">
-							<?php
-								$count = 1;
-								foreach( $depoimentos as $depoimento )  {
-									$resumo_do_depoimento = $depoimento->post_excerpt;
-									echo '
-										<div class="slide depoimento-' . $count .  '" data-depoimento-id="' . $count .  '">
-											<span class="conteudo">
-												<span class="texto">“' . $resumo_do_depoimento . '”</span>
-												<span class="autor">— ' . $depoimento->post_title . '</span>
-												<a class="ler-na-integra" data-goto-integra-id="' . $count .  '" href="">[' . __('ler na íntegra', 'pna') . ']</a>
-											</span>
-										</div>
-									';
-									$count++;
-								}
-							?>
-					</div>
-					<div class="custom-navigation">
-						<a href="#" class="flex-prev"><img src="<?php bloginfo('template_url'); ?>/imgs/slide-up.png" alt="Prev" /></a>
-						<a href="#" class="flex-next"><img src="<?php bloginfo('template_url'); ?>/imgs/slide-down.png" alt="next" /></a>
-					</div>		            
+	<section class="depoimentos-resumidos">
+		<div class="grid-container">
+			<div class="grid-x">
+				<div class="small-12 cell">
+					<h2><?php echo $titulo_depoimentos; ?></h2>
 				</div>
 			</div>
 		</div>
-	</div>
-	<div class="grid-container">
-        <div class="grid-x">
-            <div class="small-12 medium-6 cell">
-				<section class="conteudo">
-					<p><?php echo $pagina_depoimentos->post_content; ?></p>
-				</section>
-            </div>
-        </div>
-	</div>
+		<div class="grid-container">
+			<div class="grid-x">
+				<div class="small-12 medium-7 cell">
+					<section class="container-75-anos">
+						<div class="slider-75-anos">
+							<div class="pontos">
+								<?php
+									$count = 1;
+									foreach( $depoimentos as $depoimento )  {
+										$count_class = '';
+										if ( 76 == $count || 77 == $count || 78 == $count || 79 == $count ) {
+											$count_class = ' display-none';
+										}
+										
+										echo '<div class="ponto p' . $count . $count_class . '" ponto-id="' . $count .  '"></div>';
+										$count++;
+									}
+								?>
+							</div>
+						</div>
+					</section>
+				</div>
+				<div class="small-12 medium-5 cell">
+					<div class="slider-container">
+						<div class="simple-depoimentos-slider">
+							<div class="slides">
+								<?php
+									$count = 1;
+									foreach( $depoimentos_resumos as $depoimento )  {
+										$count_class = '';
+										if ( 76 == $count || 77 == $count || 78 == $count || 79 == $count ) {
+											$count_class = ' display-none';
+										}
+										
+										$resumo_do_depoimento = $depoimento->post_excerpt;
+										echo '
+											<div class="slide depoimento-' . $count . $count_class . '" data-depoimento-id="' . $count .  '">
+												<span class="conteudo">
+													<span class="table-cell">
+														<span class="texto">“' . $resumo_do_depoimento . '”</span>
+														<span class="autor">— ' . $depoimento->post_title . '</span>
+														<a class="ler-na-integra" href="' . $count . '">[' . __('ler na íntegra', 'pna') . ']</a>
+													</span>
+												</span>
+											</div>
+										';
+										$count++;
+									}
+								?>
+						</div>
+						<div class="custom-navigation">
+							<a href="#" class="flex-prev"><img src="<?php bloginfo('template_url'); ?>/imgs/slide-up.png" alt="Prev" /></a>
+							<a href="#" class="flex-next"><img src="<?php bloginfo('template_url'); ?>/imgs/slide-down.png" alt="next" /></a>
+						</div>		            
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="grid-container">
+	        <div class="grid-x">
+	            <div class="small-12 medium-6 cell">
+					<section class="conteudo">
+						<p><?php echo $pagina_depoimentos->post_content; ?></p>
+					</section>
+	            </div>
+	        </div>
+		</div>
+	</section>
 </section>
 <section class="secao-pagina video">
     <div class="grid-container">
@@ -191,5 +231,18 @@
 
 <?php get_footer(); ?>
 <script>
-	jQuery('.parallax-window').parallax({imageSrc: '<?php bloginfo('template_url'); ?>/imgs/bg-header.jpg'});
+    const backgroundVideo = new BackgroundVideo('.bv-video', {
+      src: [
+        '<?php bloginfo('template_url'); ?>/imgs/PNA_VideoHotsiteBackground.mp4',
+        '<?php bloginfo('template_url'); ?>/imgs/PNA_VideoHotsiteBackground.webm'
+      ],
+		parallax: {
+			effect: 1.2
+		},      
+      onReady: function () {
+        // Use onReady() to prevent flickers or force loading state
+        const vidParent = document.querySelector(`.${this.bvVideoWrapClass}`);
+        vidParent.classList.add('bv-video-wrap--ready');
+      }
+    });
 </script>
