@@ -21,7 +21,7 @@
 	                </a>
 	            </div>
 	            <div class="small-12 medium-4 cell">
-	                <a class="linkedin" href="#" target="_blank">Linkedin</a>
+	                <a class="linkedin" href="https://br.linkedin.com/company/pinheiro-neto-advogados" target="_blank">Linkedin</a>
 		            <div class="seletor-de-idiomas">
 		            	<?php icl_post_languages(); ?>
 		            </div>
@@ -33,7 +33,13 @@
 	    <div class="grid-container">
 	        <div class="grid-x">
 	            <div class="small-12 medium-5 cell">
-		            <?php include('animacao.php'); ?>
+		            <?php
+			            if ( 'en' == ICL_LANGUAGE_CODE ) {
+				            include('animacao_en.php'); 
+			            } else {
+				            include('animacao.php'); 
+			            }
+			        ?>
 	            </div>
 	            <div class="small-12 medium-5 medium-offset-2 cell">
 		            <section class="conteudo">
@@ -61,7 +67,6 @@
 				<div class="small-12 medium-7 cell">
 					<h2>
 						<?php echo $titulo_depoimentos; ?>
-						<span class="close">X</span>
 					</h2>
 					<div class="container-depoimentos-completos">
 						<div class="slider-depoimentos-completos">
@@ -104,6 +109,7 @@
 				</div>
 				<div class="small-12 medium-5 cell">
 					<div class="container-carrossel-depoimentos">
+						<span class="close">X</span>
 						<div class="carrossel-depoimentos-completos">
 							<span class="cantoneira-left"></span>
 							<span class="cantoneira-right"></span>
@@ -123,7 +129,7 @@
 										$ano = get_field('ano', $depoimento->ID);
 										echo '
 											<li class="foto' . $count_class . ' ' . $depoimento->post_name . '" data-foto-id="' . $count .  '">
-												<img src="http://felipebatista.net/pna/pna75anos/wp-content/uploads/2017/07/alexandre-bertoldi.jpg" alt="' . $depoimento->post_title . '" />
+												<img src="' . ( $foto ? $foto : 'http://felipebatista.net/pna/pna75anos/wp-content/uploads/2017/07/alexandre-bertoldi.jpg' ) . '" alt="' . $depoimento->post_title . '" />
 												<div class="nome-ano-cargo">
 													<span class="nome">' . $depoimento->post_title . '</span>
 												</div>
@@ -186,9 +192,11 @@
 											<div class="slide depoimento-' . $count . $count_class . '" data-depoimento-id="' . $count .  '">
 												<span class="conteudo">
 													<span class="table-cell">
+														<a class="ler-na-integra" href="' . $count . '">
 														<span class="texto">“' . $resumo_do_depoimento . '”</span>
 														<span class="autor">— ' . $depoimento->post_title . '</span>
-														<a class="ler-na-integra" href="' . $count . '">[' . __('ler na íntegra', 'pna') . ']</a>
+														<span class="ler-na-integra-button">[' . __('ler na íntegra', 'pna') . ']</a>
+														</a>
 													</span>
 												</span>
 											</div>

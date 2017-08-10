@@ -19,6 +19,10 @@ jQuery(document).ready(function(){
 		},
 		onSlideBefore: function(){
 			jQuery('.foto img').width(135);
+			jQuery('.cantoneira-left, .cantoneira-right').hide();
+		},
+		onSlideAfter: function(){
+			jQuery('.cantoneira-left, .cantoneira-right').fadeIn('fast');
 		},
 		onSlidePrev: function(){
 			jQuery('.foto.ativo').prev().addClass('ativo');
@@ -115,7 +119,9 @@ jQuery(window).on('load', function(){
 		direction: 'vertical',
 		customDirectionNav: jQuery('.custom-navigation a'),	
 		controlNav: false,
-		slideshow: false,
+		slideshow: true,
+		slideshowSpeed: 6000,
+		mousewheel: true,
 		after: function() {
 			var slide_ativo = jQuery('.slide.flex-active-slide');
 			jQuery('.slider-75-anos .ponto').removeClass('flex-active flex-active-slide');

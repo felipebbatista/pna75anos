@@ -20,7 +20,7 @@ h6 {
 	position: fixed;
 	width: 100%;
 	height: 100%;
-	background: #000 url('../imgs/loading.gif') no-repeat center;
+	background: #1e1e1e url('../imgs/loading.gif') no-repeat center;
 	z-index: 9999;
 }
 
@@ -239,6 +239,11 @@ h6 {
 	padding-top: 12px;
 }
 
+.secao-pagina.depoimentos .slider-container .simple-depoimentos-slider .slides .slide .conteudo .ler-na-integra {
+	display: block;
+}
+
+
 .secao-pagina.depoimentos .slider-container .simple-depoimentos-slider .slides .slide .conteudo .texto {
 	display: block;	
 	font: 32px/1.2 'Surveyor Display Medium', sans-serif;
@@ -253,7 +258,7 @@ h6 {
 	text-transform: uppercase;
 }
 
-.secao-pagina.depoimentos .slider-container .simple-depoimentos-slider .slides .slide .conteudo .ler-na-integra {
+.secao-pagina.depoimentos .slider-container .simple-depoimentos-slider .slides .slide .conteudo .ler-na-integra-button {
 	clear: both;
 	font: 11.5px/1 'Avenir LT Std Roman', sans-serif;
 	color: #eee;
@@ -261,7 +266,7 @@ h6 {
 	letter-spacing: 1px;
 }
 
-.secao-pagina.depoimentos .slider-container .simple-depoimentos-slider .slides .slide .conteudo .ler-na-integra:hover {
+.secao-pagina.depoimentos .slider-container .simple-depoimentos-slider .slides .slide .conteudo .ler-na-integra-button:hover {
 	color: #ddd;
 	text-decoration: underline;
 }
@@ -320,12 +325,14 @@ h6 {
 	margin-top: 100px;
 }
 
-.secao-pagina.depoimentos .depoimentos-expanded h2 .close {
+.secao-pagina.depoimentos .depoimentos-expanded .close {
 	cursor: pointer;
 	position: absolute;
-	right: 60px;
-	top: 0;
-	font-family: 'Avenir LT Std Heavy';
+	right: 0;
+	top: 50px;
+	font: 48px/1 'Avenir LT Std Light';
+	color: #aaa683;
+	z-index: 9998;
 }
 
 .secao-pagina.depoimentos .depoimentos-expanded.show {
@@ -353,7 +360,8 @@ h6 {
 	position: relative;
 	width: 100%;
 	max-width: 470px;
-	height: 390px;
+	height: 370px;
+	margin-bottom: 60px;
 	padding-left: 80px;
 }
 
