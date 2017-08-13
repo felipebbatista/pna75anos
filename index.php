@@ -8,6 +8,7 @@
 	$citacao = get_field('citacao', $pagina_inicio->ID);
 	$referencia = get_field('referencia', $pagina_inicio->ID);
 	$titulo_depoimentos = get_field('titulo', $pagina_depoimentos->ID);
+	$texto_de_apoio = get_field('texto_de_apoio', $pagina_depoimentos->ID);
 	$titulo_video = get_field('titulo', $pagina_video->ID);
 ?>
 
@@ -97,7 +98,7 @@
 					<div class="grid-x padding-top-30">
 						<div class="small-12 medium-7 cell text-right">
 							<div class="container-frase">
-								<p class="frase-inferior-depoimentos"><?php echo $pagina_depoimentos->post_content; ?></p>
+								<p class="frase-inferior-depoimentos"><?php echo $texto_de_apoio; ?></p>
 							</div>
 						</div>
 						<div class="small-12 medium-5 cell">
@@ -111,15 +112,13 @@
 					<div class="container-carrossel-depoimentos">
 						<span class="close">X</span>
 						<div class="carrossel-depoimentos-completos">
-							<span class="cantoneira-left"></span>
-							<span class="cantoneira-right"></span>
 							<ul class="bxslider">
 								<?php
 									$count = 1;
 									foreach( $depoimentos as $depoimento )  {
 										$count_class = '';
 										if ( 3 == $count ) {
-											$count_class = ' ativo';
+											$count_class = ' ativo first';
 										} elseif ( 77 == $count ) {
 											$count_class = ' last';
 										}
@@ -127,11 +126,16 @@
 										$foto = get_field('foto', $depoimento->ID);
 										$cargo = get_field('cargo', $depoimento->ID);
 										$ano = get_field('ano', $depoimento->ID);
+										$linkedin = get_field('linkedin', $depoimento->ID);
 										echo '
 											<li class="foto' . $count_class . ' ' . $depoimento->post_name . '" data-foto-id="' . $count .  '">
-												<img src="' . ( $foto ? $foto : 'http://felipebatista.net/pna/pna75anos/wp-content/uploads/2017/07/alexandre-bertoldi.jpg' ) . '" alt="' . $depoimento->post_title . '" />
+												<span class="cantoneira-left"></span>
+												<span class="cantoneira-right"></span>
+												<img src="' . ( $foto ? $foto : 'http://felipebatista.net/pna/pna75anos/wp-content/uploads/2017/08/BNO.jpg' ) . '" alt="' . $depoimento->post_title . '" />
 												<div class="nome-ano-cargo">
 													<span class="nome">' . $depoimento->post_title . '</span>
+													<span class="cargo">' . $cargo . '</span>
+													<span class="ano">' . __('Conosco desde', 'pna') . ' ' . $ano . '<a class="linkedin" href="' . $linkedin . '" target="_blank">Linkedin</a></span>
 												</div>
 											</li>
 										';
@@ -217,7 +221,7 @@
 	        <div class="grid-x">
 	            <div class="small-12 medium-6 cell">
 					<section class="conteudo">
-						<p><?php echo $pagina_depoimentos->post_content; ?></p>
+						<p><?php echo apply_filters('the_content', $pagina_depoimentos->post_content); ?></p>
 					</section>
 	            </div>
 	        </div>
