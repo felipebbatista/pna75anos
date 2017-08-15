@@ -48,6 +48,11 @@ jQuery(document).ready(function(){
 				'bottom': 5,
 				'left': 133
 			}, 80);
+			
+			var slide_number = jQuery('.foto.ativo').attr('data-foto-id');
+			
+			jQuery('.ponto-small').removeClass('ativo');
+			jQuery('.ponto-small[ponto-small-id="' + ( parseFloat(slide_number) - parseFloat(2) ) + '"]').addClass('ativo');
 		},
 		onSlidePrev: function(){
 			jQuery('.foto.ativo').prev().addClass('ativo');
@@ -133,8 +138,32 @@ jQuery(document).ready(function(){
 			jQuery('.depoimento').removeClass('ativo');
 			carrossel.goToSlide(slide_to_go);
 			jQuery('.foto[data-foto-id="' + ( parseFloat(slide_number) + parseFloat(2) ) + '"]').addClass('ativo');
-			jQuery('.foto[data-foto-id="3"').find('.cantoneira-left').show();
-			jQuery('.foto[data-foto-id="3"').find('.cantoneira-right').show();
+			if ( jQuery('.foto[data-foto-id="3"').hasClass('ativo') ) {
+				jQuery('.foto[data-foto-id="3"').find('.cantoneira-left').show();
+				jQuery('.foto[data-foto-id="3"').find('.cantoneira-right').show();
+				jQuery('.ponto-small.p1').addClass('ativo');
+			}
+			jQuery('.depoimento[data-depoimento-completo-id="' + ( parseFloat(slide_number) + parseFloat(2) ) + '"]').addClass('ativo');
+			if ( slide_to_go > 0 ) {
+				jQuery('.bx-prev').removeClass('inativo');
+			}
+			if ( slide_to_go == 74 ) {
+				jQuery('.bx-next').addClass('inativo');
+			}
+		});
+	});	
+
+	jQuery('.ponto-small').each(function(){
+		var slide_number = jQuery(this).attr('ponto-small-id');
+		var slide_to_go = parseFloat(slide_number) - parseFloat(1);
+	
+			
+		jQuery(this).click(function(e){
+			e.preventDefault();
+			jQuery('.foto').removeClass('ativo');
+			jQuery('.depoimento').removeClass('ativo');
+			carrossel.goToSlide(slide_to_go);
+			jQuery('.foto[data-foto-id="' + ( parseFloat(slide_number) + parseFloat(2) ) + '"]').addClass('ativo');
 			jQuery('.depoimento[data-depoimento-completo-id="' + ( parseFloat(slide_number) + parseFloat(2) ) + '"]').addClass('ativo');
 			if ( slide_to_go > 0 ) {
 				jQuery('.bx-prev').removeClass('inativo');

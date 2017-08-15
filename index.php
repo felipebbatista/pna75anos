@@ -17,7 +17,7 @@
 	    <div class="grid-container">
 	        <div class="grid-x">
 	            <div class="small-12 medium-8 cell">
-	                <a class="logo" href="#">
+	                <a class="logo" href="<?php bloginfo('url'); ?>">
 	                    <img src="<?php bloginfo('template_url'); ?>/imgs/logo.png" alt="Pinheiro Neto Advogados" />
 	                </a>
 	            </div>
@@ -33,7 +33,7 @@
 	<div class="centraliza">
 	    <div class="grid-container">
 	        <div class="grid-x">
-	            <div class="small-12 medium-5 cell">
+	            <div class="small-12 medium-5 cell grow-767">
 		            <?php
 			            if ( 'en' == ICL_LANGUAGE_CODE ) {
 				            include('animacao_en.php'); 
@@ -42,7 +42,7 @@
 			            }
 			        ?>
 	            </div>
-	            <div class="small-12 medium-5 medium-offset-2 cell">
+	            <div class="small-12 medium-5 medium-offset-2 cell grow-767">
 		            <section class="conteudo">
 			            <span class="before"></span>
 			            <p><?php echo $pagina_inicio->post_content; ?></p>
@@ -102,9 +102,27 @@
 							</div>
 						</div>
 						<div class="small-12 medium-5 cell">
+							<div class="container-75-small">
+								<div class="pontos-small">
+									<?php
+										$count = 1;
+										foreach ( $depoimentos as $depoimento )  {
+											$count_class = '';
+											if ( 76 == $count || 77 == $count || 78 == $count || 79 == $count ) {
+												$count_class = ' display-none';
+											}
+											
+											echo '<div class="ponto-small p' . $count . $count_class . '" ponto-small-id="' . $count .  '"></div>';
+											$count++;
+										}
+									?>
+								</div>
+							</div>
+							<!--
 							<figure class="75-small">
 								<img src="<?php bloginfo('template_url'); ?>/imgs/75-small.png" alt="75 anos" />
 							</figure>
+							-->
 						</div>						
 					</div>
 				</div>
@@ -179,7 +197,7 @@
 						</div>
 					</section>
 				</div>
-				<div class="small-12 medium-5 cell">
+				<div class="small-12 medium-5 cell grow">
 					<div class="slider-container">
 						<div class="simple-depoimentos-slider">
 							<div class="slides">
@@ -219,7 +237,7 @@
 		</div>
 		<div class="grid-container">
 	        <div class="grid-x">
-	            <div class="small-12 medium-6 cell">
+	            <div class="small-12 medium-6 cell grow">
 					<section class="conteudo">
 						<p><?php echo apply_filters('the_content', $pagina_depoimentos->post_content); ?></p>
 					</section>
@@ -232,9 +250,12 @@
     <div class="grid-container">
         <div class="grid-x">
             <div class="small-12 cell">
-	            <h2><?php echo $titulo_video; ?></h2>
-				<div class="responsive-embed">
-					<iframe width="420" height="315" src="https://www.youtube.com/embed/R3AKlscrjmQ" frameborder="0" allowfullscreen></iframe>
+	            <h2><?php echo $titulo_video; ?></h2>				
+				<div class="responsive-embed">					
+					<!--<iframe width="420" height="315" src="https://www.youtube.com/embed/R3AKlscrjmQ" frameborder="0" allowfullscreen></iframe>-->
+					<video width="320" height="240" controls>
+						<source src="<?php bloginfo('template_url'); ?>/170255_PNA_75_ANOS_04.mp4" type="video/mp4">
+					</video>					
 				</div>	
             </div>
         </div>
