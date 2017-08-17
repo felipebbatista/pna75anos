@@ -1,10 +1,20 @@
 <?php 
+	global $is_IE;
 	get_header(); 
-	$pagina_inicio = get_page_by_path('inicio');
-	$pagina_depoimentos = get_page_by_path('depoimentos');
-	$depoimentos = get_posts('posts_per_page=79&orderby=menu_order');
-	$depoimentos_resumos = get_posts('posts_per_page=79&orderby=menu_order&exclude=443,445,447,449');
-	$pagina_video = get_page_by_path('video');
+	if ( 'en' == ICL_LANGUAGE_CODE ) {
+		$pagina_inicio = get_page_by_path('start');
+		$pagina_depoimentos = get_page_by_path('testimonials');
+		$depoimentos = get_posts('posts_per_page=79&orderby=menu_order');
+		$depoimentos_resumos = get_posts('posts_per_page=79&orderby=menu_order&exclude=753,750,950,949');
+		$pagina_video = get_page_by_path('video_en');
+	} else {
+		$pagina_inicio = get_page_by_path('inicio');
+		$pagina_depoimentos = get_page_by_path('depoimentos');
+		$depoimentos = get_posts('posts_per_page=79&orderby=menu_order');
+		$depoimentos_resumos = get_posts('posts_per_page=79&orderby=menu_order&exclude=443,445,447,449');
+		$pagina_video = get_page_by_path('video');
+	}
+	$redirecionamento = get_field('redirecionamento', $pagina_inicio->ID);
 	$citacao = get_field('citacao', $pagina_inicio->ID);
 	$referencia = get_field('referencia', $pagina_inicio->ID);
 	$titulo_depoimentos = get_field('titulo', $pagina_depoimentos->ID);
@@ -26,6 +36,11 @@
 		            <div class="seletor-de-idiomas">
 		            	<?php icl_post_languages(); ?>
 		            </div>
+		            <?php 
+			            if ( $redirecionamento ) {
+				            echo '<a class="retornar-ao-site" href="' . $redirecionamento . '">' . __('< Retorne ao site', 'pna') . '</a>';
+			            }
+		            ?>
 	            </div>
 	        </div>        
 	    </div>        
@@ -58,7 +73,20 @@
 			<p class="referencia"><?php echo $referencia; ?></p>
 	    </div>
 	</div>  
-	<video class="bv-video"></video>
+	<?php 
+		if ( ! $is_IE ) {
+			echo '<video class="bv-video"></video>';
+		} else {
+			echo '
+				<div class="fullwidth-video">
+					<video preload="auto" autoplay loop muted="">
+						<source src="' . get_bloginfo('template_url') . '/imgs/PNA_VideoHotsiteBackground.mp4" type="video/mp4">
+						<source src="' . get_bloginfo('template_url') . '/imgs/PNA_VideoHotsiteBackground.webm" type="video/webm">
+					</video>
+				</div>
+			';			
+		}
+	?>
 </section>
 <section class="secao-pagina depoimentos">
 	<div class="depoimentos-before"><span class="before"></span></div>
@@ -118,11 +146,6 @@
 									?>
 								</div>
 							</div>
-							<!--
-							<figure class="75-small">
-								<img src="<?php bloginfo('template_url'); ?>/imgs/75-small.png" alt="75 anos" />
-							</figure>
-							-->
 						</div>						
 					</div>
 				</div>
@@ -144,7 +167,6 @@
 										$foto = get_field('foto', $depoimento->ID);
 										$cargo = get_field('cargo', $depoimento->ID);
 										$ano = get_field('ano', $depoimento->ID);
-										$linkedin = get_field('linkedin', $depoimento->ID);
 										echo '
 											<li class="foto' . $count_class . ' ' . $depoimento->post_name . '" data-foto-id="' . $count .  '">
 												<span class="cantoneira-left"></span>
@@ -153,7 +175,7 @@
 												<div class="nome-ano-cargo">
 													<span class="nome">' . $depoimento->post_title . '</span>
 													<span class="cargo">' . $cargo . '</span>
-													<span class="ano">' . __('Conosco desde', 'pna') . ' ' . $ano . '<a class="linkedin" href="' . $linkedin . '" target="_blank">Linkedin</a></span>
+													<span class="ano">' . __('Conosco desde', 'pna') . ' ' . $ano . '</span>
 												</div>
 											</li>
 										';
@@ -263,19 +285,21 @@
 </section>
 
 <?php get_footer(); ?>
-<script>
-    const backgroundVideo = new BackgroundVideo('.bv-video', {
-      src: [
-        '<?php bloginfo('template_url'); ?>/imgs/PNA_VideoHotsiteBackground.mp4',
-        '<?php bloginfo('template_url'); ?>/imgs/PNA_VideoHotsiteBackground.webm'
-      ],
-		parallax: {
-			effect: 1.2
-		},      
-      onReady: function () {
-        // Use onReady() to prevent flickers or force loading state
-        const vidParent = document.querySelector(`.${this.bvVideoWrapClass}`);
-        vidParent.classList.add('bv-video-wrap--ready');
-      }
-    });
-</script>
+
+<?php if ( ! $is_IE ) { ?>
+	<script type="text/javascript">
+		const backgroundVideo = new BackgroundVideo('.bv-video', {
+			src: [
+				'<?php bloginfo('template_url'); ?>/imgs/PNA_VideoHotsiteBackground.mp4',
+				'<?php bloginfo('template_url'); ?>/imgs/PNA_VideoHotsiteBackground.webm'
+			],
+			parallax: {
+				effect: 1.2
+			},      
+			onReady: function () {
+				const vidParent = document.querySelector(`.${this.bvVideoWrapClass}`);
+				vidParent.classList.add('bv-video-wrap--ready');
+			}
+		});
+	</script>
+<?php } ?>

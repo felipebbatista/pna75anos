@@ -46,21 +46,8 @@ function my_class_names($classes) {
 add_filter( 'wp_head' , 'ie_head' );
 function ie_head() {
     echo '
-        <!--[if lte IE 9]>
-        <link rel="stylesheet" href="' . get_stylesheet_directory_uri() . '/css/ie9.css">
-        <![endif]-->
-
         <!--[if lt IE 9]>
-        <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-        <link rel="stylesheet" href="' . get_stylesheet_directory_uri() . '/css/ie8grid.css">
-        <link rel="stylesheet" href="' . get_stylesheet_directory_uri() . '/css/ie.css">
-        <style type="text/css" media="screen">
-        .pie {
-                behavior: url("' . get_stylesheet_directory_uri() . '/PIE.php");
-                position: relative;
-                zoom: 1;
-        }
-        </style>
+	        <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
         <![endif]-->
     ';
 }

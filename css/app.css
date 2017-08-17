@@ -5,6 +5,16 @@ body {
     background-color: #2d2d2d;
 }
 
+::-moz-selection { 
+	color: #fff;
+	background-color: #aaa683; 
+}
+
+::selection { 
+	color: #fff;
+	background-color: #aaa683; 
+}
+
 h1,
 h2,
 h3,
@@ -78,6 +88,19 @@ h6 {
 
 .secao-pagina.intro a.linkedin:hover {
 	background-position: bottom center;
+}
+
+.secao-pagina.intro a.retornar-ao-site {
+	display: inline-block;
+	float: right;
+	margin: 105px 15px 0 0;
+	font: 12.5px/1 'Avenir LT Std Book', sans-serif;
+	color: #aaa683;
+	text-transform: uppercase;
+}
+
+.secao-pagina.intro a.retornar-ao-site:hover {
+	text-decoration: underline;
 }
 
 .secao-pagina.intro .conteudo {
@@ -360,7 +383,7 @@ h6 {
 	position: relative;
 	width: 100%;
 	max-width: 470px;
-	height: 370px;
+	height: 368px;
 	margin-bottom: 60px;
 	padding-left: 80px;
 }
@@ -374,7 +397,6 @@ h6 {
 	height: 100%;
 	padding-left: 15px;
 	overflow: auto;
-	text-align: justify;
 }
 
 .secao-pagina.depoimentos .depoimentos-expanded .depoimentos-completos .depoimento.ativo {
@@ -444,7 +466,7 @@ h6 {
 	position: absolute;
 	width: 47px;
 	height: 47px;
-	z-index: 999;
+	z-index: -1;
 }
 
 .secao-pagina.depoimentos .depoimentos-expanded .carrossel-depoimentos-completos .cantoneira-left {
@@ -495,7 +517,7 @@ h6 {
 	top: 50%;
 	left: 220px;
 	width: 100%;
-	max-width: 170px;
+	max-width: 190px;
 	-webkit-transform: translateY(-50%);
 	-moz-transform: translateY(-50%);
 	-ms-transform: translateY(-50%);
@@ -506,7 +528,7 @@ h6 {
 .secao-pagina.depoimentos .depoimentos-expanded .carrossel-depoimentos-completos .foto.ativo .nome-ano-cargo .nome {
 	display: block;
 	margin-bottom: 15px;
-	font: 30px/0.8 'Surveyor Display Bold', sans-serif;
+	font: 30px/0.9 'Surveyor Display Bold', sans-serif;
 	letter-spacing: -1px;
 	color: #aaa683;
 	text-transform: uppercase;
@@ -706,6 +728,24 @@ footer .copyright {
 }
 
 /* mobile */
+@media screen and (max-height: 767px) {
+	.secao-pagina.intro a.logo {
+		margin-top: 20px;
+	}
+
+	.secao-pagina.intro a.retornar-ao-site	{
+		margin-top: 75px;
+	}
+
+	.secao-pagina.intro .seletor-de-idiomas	{
+		padding-top: 68px;
+	}
+
+	.secao-pagina.intro a.linkedin {
+		margin-top: 65px;
+	}
+}
+
 @media screen and (max-width: 1170px) {
 	.secao-pagina {
 		overflow: hidden;
@@ -1608,4 +1648,27 @@ ul.bxslider {
 .bv-video {
   width: 100%;
   height: 100%;
+}
+
+/* IE 11 */
+.fullwidth-video {
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 1;
+	min-height: 100%;
+	min-width: 100%;
+	-webkit-transform-style: preserve-3d;
+}
+
+.fullwidth-video video {
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 1;
+	min-height: 100%;
+	min-width: 100%;
+	height: auto;
+	width: 100%;
+	object-fit: cover;
 }
