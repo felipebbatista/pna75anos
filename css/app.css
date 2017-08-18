@@ -765,31 +765,101 @@ footer .copyright {
 	.grow {
 		width: 100%!important;
 	}
+	
+	.secao-pagina.depoimentos h2 {
+		text-align: center;
+	}
+	
 }
 
 @media screen and (max-width: 767px) {
-	.secao-pagina.intro a.logo, 
-	.secao-pagina.intro a.linkedin {
-		margin-top: 10px;	
+	body {
+		overflow-x: hidden!important;
+	}
+	
+	.secao-pagina.intro {
+		height: auto;	
+		overflow: visible!important;
+	}
+	
+	.secao-pagina.intro .header {
+		position: relative;
+		top: auto;
+		left: auto;
+	}
+	
+	.header .grid-container .medium-4.small-12 {
+		width: 100%;
+		position: absolute;
+		top: 0;
+		left: 0;
+		padding: 10px 20px;
+		background-color: #373738;
+	}
+	
+	.header .grid-container .medium-8.small-12 {
+		width: 100%;
+		text-align: center;
+	}
+	
+	.secao-pagina.intro a.retornar-ao-site {
+		float: left;
+		margin: 6px 0 0 0;
+		color: #fff;
+	}
+	
+	.secao-pagina.intro a.logo {
+		margin-top: 58px;	
 	}
 	
 	.secao-pagina.intro .seletor-de-idiomas {
-		padding-top: 13px;
+		padding-top: 0;
+	}
+	
+	.secao-pagina.intro .seletor-de-idiomas a {
+		padding: 0;
+		font-size: 12px;
+		border: none;
+	}
+	
+	.secao-pagina.intro a.linkedin {
+		width: 20px;
+		height: 20px;
+		margin-top: 0;
+		background-size: 100%;
 	}
 	
 	.secao-pagina.intro .conteudo {
-		margin-top: 40px;
+		margin: 80px 0;
+		padding: 0 30px;
 	}
 	
-	.secao-pagina.intro .conteudo .before,
+	.secao-pagina.intro .conteudo .before, 
 	.secao-pagina.intro .conteudo .after {
-		display: none!important;
+		height: 150px;
+	}
+	
+	.secao-pagina.intro .conteudo .before {
+		left: 15px;
+	}
+
+	.secao-pagina.intro .conteudo .after {
+		right: 15px;
+	}
+	
+	.secao-pagina.intro #animation_container {
+		margin: 0 auto;
+	}
+	
+	.secao-pagina.depoimentos h2 {
+		margin-top: 20px;
+		text-align: center;
 	}
 	
 	.secao-pagina.intro .centraliza {
-		position: absolute;
-		top: 100px;
-		left: 0;
+		position: static;
+		top: auto;
+		left: auto;
 		-webkit-transform: none;
 	    -moz-transform: none;
 	    -ms-transform: none;
@@ -797,6 +867,64 @@ footer .copyright {
 	    transform: none;		
 	}
 	
+	.bv-video-wrap {
+		display: none!important;
+	}
+	
+	.secao-pagina.intro .container-citacao {
+		position: relative;
+		bottom: auto;
+		left: auto;
+		margin-bottom: -100px;
+		padding: 0 20px;
+		z-index: 9998;
+	}
+	
+	.secao-pagina.intro .container-citacao .citacao {
+		padding: 12px;
+	}
+	
+	.secao-pagina.intro .container-citacao .citacao br {
+		display: none!important;
+	}
+		
+	.secao-pagina.depoimentos .depoimentos-before {
+		display: none;
+	}
+	
+	.secao-pagina.intro .container-citacao .citacao .frase {
+		font-size: 20px;
+	}
+	
+	.secao-pagina.intro .container-citacao .citacao .referencia {
+		font-size: 12px;
+	}
+	
+	.secao-pagina.depoimentos .conteudo {
+		padding: 30px 0;
+	}
+	
+	.secao-pagina.depoimentos .conteudo br {
+		display: none;		
+	}
+	
+	.secao-pagina.video h2 {
+		font-size: 24px;
+	}
+	
+	.secao-pagina.depoimentos .depoimentos-expanded .carrossel-depoimentos-completos .foto, 
+	.secao-pagina.depoimentos .depoimentos-expanded .carrossel-depoimentos-completos .foto.inativo {
+		opacity: 0;
+	}
+		
+	.secao-pagina.depoimentos .depoimentos-expanded .carrossel-depoimentos-completos .foto.ativo {
+		opacity: 1;
+	}
+	
+	.secao-pagina.depoimentos .depoimentos-expanded .carrossel-depoimentos-completos .foto img {
+		width: 170px!important;
+	}
+
 	footer {
 		padding: 20px 0;
 		text-align: center;
@@ -816,14 +944,48 @@ footer .copyright {
 	}
 	
 	footer ul.escritorio {
-		margin-bottom: 10px;
+		margin-bottom: 20px;
 	}
 	
 	.grow-767 {
 		width: 100%!important;
 	}	
+
+	.grow-767.medium-offset-2 {
+		margin-left: 0!important;
+	}
 }
 
+@media screen and (max-width: 640px) { 
+	.secao-pagina.intro .conteudo p {
+		font-size: 14px;
+	}
+
+	.secao-pagina.video {
+		padding: 30px 0;
+	}
+	
+	.secao-pagina.video h2 {
+		font-size: 20px;
+		margin-bottom: 30px;
+	}	
+	
+}
+
+@media screen and (max-width: 520px) { 
+	.secao-pagina.intro .container-citacao .citacao .frase {
+		font-size: 16px;
+	}
+	
+	.secao-pagina.intro .container-citacao .citacao .referencia {
+		font-size: 11px;
+	}
+
+	.secao-pagina.video h2 {
+		font-size: 18px;
+		letter-spacing: 5px;
+	}
+}
 
 
 /* fontface */
