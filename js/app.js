@@ -119,7 +119,17 @@ jQuery(document).ready(function(){
 	
 	jQuery('.bx-viewport').mousewheel(scrollThis);
 	
-
+	var carrossel_mobile = jQuery('.bxslider-mobile').bxSlider({
+		mode: 'vertical',
+		pager: false,
+		touchEnabled: true,
+		infiniteLoop: false,
+		onSlideAfter: function(){
+			jQuery('.secao-pagina.depoimentos').height( jQuery('.depoimentos-mobile').height() );
+		}
+	});
+	
+	
 	jQuery('.ler-na-integra').click(function(e){
 		e.preventDefault();
 		jQuery('.depoimentos-expanded').addClass('show');
@@ -137,6 +147,7 @@ jQuery(document).ready(function(){
 			jQuery('.foto').removeClass('ativo');
 			jQuery('.depoimento').removeClass('ativo');
 			carrossel.goToSlide(slide_to_go);
+			carrossel_mobile.goToSlide(slide_to_go);
 			jQuery('.foto[data-foto-id="' + ( parseFloat(slide_number) + parseFloat(2) ) + '"]').addClass('ativo');
 			if ( jQuery('.foto[data-foto-id="3"').hasClass('ativo') ) {
 				jQuery('.foto[data-foto-id="3"').find('.cantoneira-left').show();
@@ -200,6 +211,10 @@ jQuery(document).ready(function(){
 			}, 500);
 		}
 	});
+	
+	jQuery(window).resize(function(){
+		window.location.href = window.location.href;
+	});
 });
 
 jQuery(window).on('load', function(){
@@ -213,12 +228,11 @@ jQuery(window).on('load', function(){
 		selector: '.slides > .slide',
 		animation: 'slide',
 		direction: 'vertical',
-		customDirectionNav: jQuery('.custom-navigation a'),	
 		controlNav: false,
 		slideshow: true,
 		slideshowSpeed: 6000,
 		mousewheel: true,
-		after: function() {
+		before: function() {
 			var slide_ativo = jQuery('.slide.flex-active-slide');
 			jQuery('.slider-75-anos .ponto').removeClass('flex-active flex-active-slide');
 			jQuery('.slider-75-anos .ponto[ponto-id = ' + slide_ativo.data('depoimento-id') + ']').addClass('flex-active flex-active-slide');

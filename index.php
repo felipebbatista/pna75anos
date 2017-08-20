@@ -20,6 +20,7 @@
 	$titulo_depoimentos = get_field('titulo', $pagina_depoimentos->ID);
 	$texto_de_apoio = get_field('texto_de_apoio', $pagina_depoimentos->ID);
 	$titulo_video = get_field('titulo', $pagina_video->ID);
+	$video = get_field('video', $pagina_video->ID);
 ?>
 
 <section class="intro secao-pagina">
@@ -73,25 +74,61 @@
 			<p class="referencia"><?php echo $referencia; ?></p>
 	    </div>
 	</div>  
-	<?php 
-		if ( ! $is_IE ) {
-			echo '<video class="bv-video"></video>';
-		} else {
-			echo '
-				<div class="fullwidth-video">
-					<video preload="auto" autoplay loop muted="">
-						<source src="' . get_bloginfo('template_url') . '/imgs/PNA_VideoHotsiteBackground.mp4" type="video/mp4">
-						<source src="' . get_bloginfo('template_url') . '/imgs/PNA_VideoHotsiteBackground.webm" type="video/webm">
-					</video>
-				</div>
-			';			
-		}
-	?>
+	<?php if ( $is_IE ) { ?>
+		<div class="fullwidth-video">
+			<video preload="auto" autoplay loop muted="">
+				<source src="<?php bloginfo('template_url'); ?>/imgs/PNA_VideoHotsiteBackground.mp4" type="video/mp4">
+				<source src="<?php bloginfo('template_url'); ?>/imgs/PNA_VideoHotsiteBackground.webm" type="video/webm">
+			</video>
+		</div>
+	<?php } else { ?>
+		<video class="bv-video"></video>
+	<?php } ?>
 </section>
 <section class="secao-pagina depoimentos">
 	<div class="depoimentos-before"><span class="before"></span></div>
 	<section class="depoimentos-expanded">
-		<div class="grid-container">
+		<div class="grid-container depoimentos-mobile">
+			<div class="small-12 cell">
+				<h2><?php echo $titulo_depoimentos; ?></h2>
+				<div class="container-frase">
+					<p class="frase-inferior-depoimentos"><?php echo $texto_de_apoio; ?></p>
+				</div>
+				<div class="carrossel-depoimentos-mobile">
+					<span class="close">X</span>
+					<ul class="bxslider-mobile">
+						<?php
+							$count = 1;
+							foreach( $depoimentos_resumos as $depoimento )  {
+								$count_class = '';
+								if ( 1 == $count ) {
+									$count_class = ' first';
+								}
+								
+								$foto = get_field('foto', $depoimento->ID);
+								$cargo = get_field('cargo', $depoimento->ID);
+								$ano = get_field('ano', $depoimento->ID);
+								echo '
+									<li class="slide' . $count_class . ' ' . $depoimento->post_name . '" data-slide-mobile-id="' . $count .  '">
+										<figure>
+											<img src="' . ( $foto ? $foto : 'http://felipebatista.net/pna/pna75anos/wp-content/uploads/2017/08/BNO.jpg' ) . '" alt="' . $depoimento->post_title . '" />
+											<div class="nome-ano-cargo">
+												<span class="nome">' . $depoimento->post_title . '</span>
+												<span class="cargo">' . $cargo . '</span>
+												<span class="ano">' . __('Conosco desde', 'pna') . ' ' . $ano . '</span>
+											</div>
+										</figure>
+										<div class="texto-depoimento">' . apply_filters('the_content', $depoimento->post_content) . '</div>
+									</li>
+								';
+								$count++;
+							}
+						?>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="grid-container depoimentos-desktop">
 			<div class="grid-x">
 				<div class="small-12 medium-7 cell">
 					<h2>
@@ -249,10 +286,6 @@
 									}
 								?>
 						</div>
-						<div class="custom-navigation">
-							<a href="#" class="flex-prev"><img src="<?php bloginfo('template_url'); ?>/imgs/slide-up.png" alt="Prev" /></a>
-							<a href="#" class="flex-next"><img src="<?php bloginfo('template_url'); ?>/imgs/slide-down.png" alt="next" /></a>
-						</div>		            
 					</div>
 				</div>
 			</div>
@@ -274,10 +307,7 @@
             <div class="small-12 cell">
 	            <h2><?php echo $titulo_video; ?></h2>				
 				<div class="responsive-embed">					
-					<!--<iframe width="420" height="315" src="https://www.youtube.com/embed/R3AKlscrjmQ" frameborder="0" allowfullscreen></iframe>-->
-					<video width="320" height="240" controls>
-						<source src="<?php bloginfo('template_url'); ?>/170255_PNA_75_ANOS_04.mp4" type="video/mp4">
-					</video>					
+					<iframe width="420" height="315" src="https://www.youtube.com/embed/<?php echo $video; ?>?rel=0" frameborder="0" allowfullscreen></iframe>
 				</div>	
             </div>
         </div>
@@ -286,20 +316,18 @@
 
 <?php get_footer(); ?>
 
-<?php if ( ! $is_IE ) { ?>
-	<script type="text/javascript">
-		const backgroundVideo = new BackgroundVideo('.bv-video', {
-			src: [
-				'<?php bloginfo('template_url'); ?>/imgs/PNA_VideoHotsiteBackground.mp4',
-				'<?php bloginfo('template_url'); ?>/imgs/PNA_VideoHotsiteBackground.webm'
-			],
-			parallax: {
-				effect: 1.2
-			},      
-			onReady: function () {
-				const vidParent = document.querySelector(`.${this.bvVideoWrapClass}`);
-				vidParent.classList.add('bv-video-wrap--ready');
-			}
-		});
-	</script>
-<?php } ?>
+<script type="text/javascript">
+	const backgroundVideo = new BackgroundVideo('.bv-video', {
+		src: [
+			'<?php bloginfo('template_url'); ?>/imgs/PNA_VideoHotsiteBackground.mp4',
+			'<?php bloginfo('template_url'); ?>/imgs/PNA_VideoHotsiteBackground.webm'
+		],
+		parallax: {
+			effect: 1.2
+		},      
+		onReady: function () {
+			const vidParent = document.querySelector('.' + this.bvVideoWrapClass);
+			vidParent.classList.add('bv-video-wrap--ready');
+		}
+	});
+</script>
